@@ -2,6 +2,7 @@ package com.appsland.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "customers")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
@@ -43,12 +45,5 @@ public class Customer {
     private String email;
     @Column
     @JsonIgnore
-    private LocalDate createdAt = LocalDate.now();
-
-    public Customer(@NotNull String firstName, @NotNull String lastName, @NotNull Integer age, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.email = email;
-    }
+    private LocalDate createdAt;
 }

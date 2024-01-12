@@ -56,4 +56,13 @@ public class OperationExceptionhandler {
         problemDetail.setDetail(exception.getMessage());
         return problemDetail;
     }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ProblemDetail handleException(IllegalArgumentException exception) {
+        var problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setTitle("Internal Server Error");
+        problemDetail.setProperty("timestamp", TIMESTAMP);
+        problemDetail.setDetail(exception.getMessage());
+        return problemDetail;
+    }
 }

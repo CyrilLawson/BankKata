@@ -7,8 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -25,9 +24,8 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-    public List<Operation> getAllOperationForAccount(Date date, int accountNumber, int page, int size) {
+    public List<Operation> getAllOperationForAccount(LocalDate date, int accountNumber, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,"date"));
-        return operationRepository.findAllByAccountNumber(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-                , accountNumber, pageRequest);
+        return operationRepository.findAllByDateLessThanEqualAndAccount_AccountNumber(date, accountNumber, pageRequest);
     }
 }
